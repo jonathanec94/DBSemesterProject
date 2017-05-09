@@ -7,6 +7,16 @@ dist/
 nbdist/
 .nb-gradle/
 */target/**
-
-.idea/
 /nbproject/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
