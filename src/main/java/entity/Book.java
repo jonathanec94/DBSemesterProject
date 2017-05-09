@@ -19,12 +19,9 @@ public class Book {
     private List<City> cities = new ArrayList<>();
     private List<String> tmpCities = new ArrayList<>();
     
-    
 
     public Book() {
     }
-    
-    
     
     public Book(String title, String author) {
         this.title = title;
@@ -64,7 +61,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "title=" + title + ", author=" + author + ", cities=" + cities + '}';
+        return "Book{" + "title=" + title + ", author=" + author + ", cities=" + cities +", tmpCities="+ tmpCities + '}';
     }
 
 }

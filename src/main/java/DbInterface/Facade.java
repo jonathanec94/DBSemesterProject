@@ -10,9 +10,11 @@ import DtoEntity.DtoCity;
 import entity.Book;
 import entity.City;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,39 +33,42 @@ public class Facade {
 
     DbInterface db;
 
+    BufferedReader in;
+
     public Facade(DbInterface db) {
         this.db = db;
     }
 
-    public void insertBooksWithCities() {
+    public boolean insertBooksWithCities() {
         //find all book files here in folder
-        
-        
-        for (int i = 0; i < 10; i++) {
+
+        for (int i = 5; i < 10; i++) {
             Book book = null;
-            try { 
-                book = findAllPossibleCitiesInBook("");
-                List<City> cities = db.findCities(book.getTmpCities());
-                book.setCities(cities);
+            try {
+                //book = findAllPossibleCitiesInBook(new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/10267.txt"))));
+                book = findAllPossibleCitiesInBook(new BufferedReader(new FileReader("/home/nikolai/Desktop/dbtextfiles/txt/"+i+".txt")));
+                //List<City> cities = db.findCities(book.getTmpCities());
+                //book.setCities(cities);
             } catch (IOException ex) {
-                Logger.getLogger(Facade.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error in method insertBooksWithCities() - value: " + i);
+                ex.printStackTrace();
+                //Logger.getLogger(Facade.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            if(book != null)
-                db.insertBook(book);
-            else
+
+            if (book != null) {
+                //db.insertBook(book);
+            } else {
                 System.out.println("Error in insertBooksWithCities()");
+            }
+            System.out.println(book.toString());
         }
-       
+
+        return true;
+
     }
 
-    public Book findAllPossibleCitiesInBook(String fileName) throws FileNotFoundException, IOException {
+    public Book findAllPossibleCitiesInBook(BufferedReader in) throws FileNotFoundException, IOException {
         Book book = new Book();
-
-        BufferedReader in = null;
-
-        //in = new BufferedReader(new FileReader(fileName));
-        in = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(fileName)));
 
         String line;
 
@@ -71,12 +76,13 @@ public class Facade {
         HashSet<String> setWords = new HashSet<String>();
 
         while ((line = in.readLine()) != null) {
-            if (line.contains("*** START")) {
+            String lineLower = line.toUpperCase().replaceAll(" ", "");
+            if (lineLower.contains("***START")) {
                 isBookStarted = true;
             } else if (!isBookStarted && line.toLowerCase().contains("title")) {
-                book.setTitle(line.replace("Title: ", ""));
+                book.setTitle(line.replace("(?i)Title: ", ""));
             } else if (!isBookStarted && line.toLowerCase().contains("author")) {
-                book.setAuthor(line.replace("Author: ", ""));
+                book.setAuthor(line.replace("(?i)Author: ", ""));
             }
 
             //Look through the book after the cities  
