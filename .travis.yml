@@ -1,16 +1,7 @@
 language: java
 jdk: oraclejdk8
-
-
-script: 
-  - mvn verify site
   
 notifications:
   email:
     - jona_egebak@hotmail.dk
 
-after_success:
-  - surge --project ./target/site --domain x123.surge.sh
-after_failure:
-  #Remove documentation for a failing project
-  - surge teardown x123.surge.sh
