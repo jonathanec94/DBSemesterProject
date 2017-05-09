@@ -63,7 +63,7 @@ public class Facade {
         BufferedReader in = null;
 
         //in = new BufferedReader(new FileReader(fileName));
-        in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName)));
+        in = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(fileName)));
 
         String line;
 
