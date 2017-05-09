@@ -56,4 +56,10 @@ public class FacadeTest {
         assertThat(book.getTmpCities().size(), is(453));
     }
     
+    @Test
+    public void testFindAllCitiesUnit(){
+        Facade instance = new Facade(null);
+        
+    }
+    
 }
