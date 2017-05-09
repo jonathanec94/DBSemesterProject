@@ -16,8 +16,20 @@ public class Book {
 
     private String title;
     private String author;
-    private List<String> cities = new ArrayList<>();
+    private List<City> cities = new ArrayList<>();
+    private List<String> tmpCities = new ArrayList<>();
+    
+    
 
+    public Book() {
+    }
+    
+    
+    
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
     public String getTitle() {
         return title;
     }
@@ -34,12 +46,20 @@ public class Book {
         this.author = author;
     }
 
-    public List<String> getCities() {
+    public List<City> getCities() {
         return cities;
     }
 
-    public void setCities(List<String> listOfPossibleCities) {
+    public void setCities(List<City> listOfPossibleCities) {
         this.cities = listOfPossibleCities;
+    }
+    
+     public List<String> getTmpCities() {
+        return tmpCities;
+    }
+
+    public void setTmpCities(List<String> listOfPossibleCities) {
+        this.tmpCities = listOfPossibleCities;
     }
 
     @Override

@@ -10,6 +10,7 @@ import DtoEntity.DtoBookAuthor;
 import DtoEntity.DtoBookCity;
 import DtoEntity.DtoCity;
 import entity.Book;
+import entity.City;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 public class MongoFacade implements DbInterface{
 
     @Override
-    public boolean findCity(String city) {
+    public List<City> findCities(List<String> city) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -47,5 +48,7 @@ public class MongoFacade implements DbInterface{
     public List<DtoBookCity> getBooksByGeolocation(double latitude, double longitude) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+
+
 }

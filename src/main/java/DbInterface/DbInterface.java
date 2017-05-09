@@ -7,6 +7,7 @@ package DbInterface;
 
 import DtoEntity.*;
 import entity.Book;
+import entity.City;
 import java.util.List;
 
 /**
@@ -15,8 +16,7 @@ import java.util.List;
  */
 public interface DbInterface {
     
-//    public List<DtoCity> getCities();
-    public boolean findCity(String city);
+    public List<City> findCities(List<String> city);
     public boolean insertBook(Book book);
     
     public List<DtoBookAuthor> getBooksByCity(String city);

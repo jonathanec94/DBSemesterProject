@@ -6,7 +6,6 @@
 package com.mycompany.db_project;
 
 import DbInterface.Facade;
-import DbInterface.DbInterface;
 import entity.Book;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -50,10 +49,11 @@ public class FacadeTest {
     public void testFindAllCities() throws IOException, FileNotFoundException {
         //Should not be null
         Facade instance = new Facade(null);
-        Book book = instance.findAllPossibleCitiesInBook("/home/nikolai/NetBeansProjects/Db_project/src/test/10267.txt");
+        //Book book = instance.findAllPossibleCitiesInBook("/home/nikolai/NetBeansProjects/Db_project/src/test/10267.txt");
+        Book book = instance.findAllPossibleCitiesInBook("/10267.txt");
         assertThat(book.getAuthor(), is("Captain Quincy Allen"));
         assertThat(book.getTitle(), is("The Outdoor Chums"));
-        assertThat(book.getCities().size(), is(453));
+        assertThat(book.getTmpCities().size(), is(453));
     }
     
 }
