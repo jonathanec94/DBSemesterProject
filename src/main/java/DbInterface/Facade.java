@@ -42,33 +42,41 @@ public class Facade {
     public boolean insertBooksWithCities() {
         //find all book files here in folder
 
-        for (int i = 5; i < 10; i++) {
-            Book book = null;
-            try {
-                //book = findAllPossibleCitiesInBook(new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/10267.txt"))));
-                book = findAllPossibleCitiesInBook(new BufferedReader(new FileReader("/home/nikolai/Desktop/dbtextfiles/txt/"+i+".txt")));
-                //List<City> cities = db.findCities(book.getTmpCities());
-                //book.setCities(cities);
-            } catch (IOException ex) {
-                System.out.println("Error in method insertBooksWithCities() - value: " + i);
-                ex.printStackTrace();
-                //Logger.getLogger(Facade.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        for (int i = 5; i < 1000; i++) {
+            String path = "/home/nikolai/Desktop/dbtextfiles/txt/" + i + ".txt";
+            if (new File(path).exists()) {
 
-            if (book != null) {
-                //db.insertBook(book);
-            } else {
-                System.out.println("Error in insertBooksWithCities()");
+                Book book = null;
+                try {
+                    book = findAllPossibleCitiesInBook(new BufferedReader(new FileReader(path)));
+                    //List<City> cities = db.findCities(book.getTmpCities());
+                    //book.setCities(cities);
+                } catch (IOException ex) {
+                    System.out.println("Error in method insertBooksWithCities() - value: " + i);
+                    //ex.printStackTrace();
+                    //Logger.getLogger(Facade.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (book != null) {
+                    //db.insertBook(book);
+                } else {
+                    System.out.println("Error in insertBooksWithCities()");
+                }
+
+                System.out.println(i + ":----------" + book.toString());
             }
-            System.out.println(book.toString());
+            else{
+                System.out.println("File does not exist: "+path);
+                //return false;
+            }
         }
-
         return true;
-
     }
 
     public Book findAllPossibleCitiesInBook(BufferedReader in) throws FileNotFoundException, IOException {
         Book book = new Book();
+        book.setAuthor("Unknown");
+        book.setTitle("Unknown");
 
         String line;
 
@@ -80,9 +88,9 @@ public class Facade {
             if (lineLower.contains("***START")) {
                 isBookStarted = true;
             } else if (!isBookStarted && line.toLowerCase().contains("title")) {
-                book.setTitle(line.replace("(?i)Title: ", ""));
+                book.setTitle(line.replace("Title: ", ""));
             } else if (!isBookStarted && line.toLowerCase().contains("author")) {
-                book.setAuthor(line.replace("(?i)Author: ", ""));
+                book.setAuthor(line.replace("Author: ", ""));
             }
 
             //Look through the book after the cities  
